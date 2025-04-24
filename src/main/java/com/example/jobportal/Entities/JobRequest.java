@@ -35,16 +35,16 @@ public class JobRequest {
 
     @Lob
     @Column(columnDefinition = "LONGTEXT",nullable = false)
-    private String resumeBase64; // Store resume as base64 string
+    private String resumeBase64; 
 
     @ElementCollection
     @CollectionTable(name = "job_posting_skills", joinColumns = @JoinColumn(name = "job_posting_id"))
     @Column(name = "skill")
     private List<String> skills;
 
-    @Lob
+    // @Lob
     @Column(nullable = false)
-    private String education;
+    private Education education;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
@@ -73,4 +73,10 @@ public class JobRequest {
         REJECTED
     }
 
+    public enum Education {
+        BTECH,
+        UNDER_GRADUATE,
+        MASTERS,
+        OTHER
+    }
 }

@@ -1,8 +1,11 @@
 package com.example.jobportal.Entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 // import java.util.Locale.Category;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 // import jakarta.annotation.Generated;
@@ -36,6 +39,12 @@ public class JobForm {
     @Column(nullable = false,columnDefinition = "LONGTEXT")
     private String description;
 
+    @Column(nullable = false,columnDefinition = "LONGTEXT")
+    private String requirment;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal salary;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Category category;
@@ -58,8 +67,8 @@ public class JobForm {
     @Column(nullable = false)
     private WorkMode workmode;
 
-    private enum Category{
-        Tech,Design;
+    public enum Category{
+        SOFTWARE_DEVELOPMENT,DESIGN,MARKETING,FINANCE,HEALTHCARE,ENGINEERING,OTHER;
     }
 
     @PrePersist
@@ -67,14 +76,15 @@ public class JobForm {
         this.date = LocalDate.now();
     }
 
-    private enum WorkMode{
+    public enum WorkMode{
         REMOTE,HYBRID,HOME
     }
 
-    private enum Show{
+    public enum Show{
         PENDING,APPROVED,REJECTED;
     }
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<JobRequest> jobRequests;
 }

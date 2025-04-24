@@ -40,12 +40,12 @@ public class User {
     private String phoneno;
 
     @Column(columnDefinition = "LONGTEXT")
-    private String avator;
+    private String avatar;
 
     @Column(nullable = false)
     private String password;
 
-    private enum Role {
+    public enum Role {
         USER,EMPLOYEE,ADMIN
     }
 
